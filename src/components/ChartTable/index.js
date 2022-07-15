@@ -1,66 +1,39 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Line, Bar } from "react-chartjs-2";
-import { useSelector} from "react-redux";
-import {
-  Chart,
-  ArcElement,
-  LineElement,
-  BarElement,
-  PointElement,
-  BarController,
-  BubbleController,
-  DoughnutController,
-  LineController,
-  PieController,
-  PolarAreaController,
-  RadarController,
-  ScatterController,
-  CategoryScale,
-  LinearScale,
-  LogarithmicScale,
-  RadialLinearScale,
-  TimeScale,
-  TimeSeriesScale,
-  Decimation,
-  Filler,
-  Legend,
-  Title,
-  Tooltip
-} from 'chart.js';
+import { useSelector , useDispatch} from "react-redux";
+import { fetchDataDaily } from "../../redux/covidDataSlice";
+import {Chart,ArcElement,LineElement,BarElement,PointElement,BarController,BubbleController,DoughnutController,
+  LineController,PieController,PolarAreaController,RadarController,ScatterController,CategoryScale,LinearScale,
+  LogarithmicScale,RadialLinearScale,TimeScale,TimeSeriesScale,Decimation,Filler,Legend,Title,Tooltip} from 'chart.js';
 
-Chart.register(
-  ArcElement,
-  LineElement,
-  BarElement,
-  PointElement,
-  BarController,
-  BubbleController,
-  DoughnutController,
-  LineController,
-  PieController,
-  PolarAreaController,
-  RadarController,
-  ScatterController,
-  CategoryScale,
-  LinearScale,
-  LogarithmicScale,
-  RadialLinearScale,
-  TimeScale,
-  TimeSeriesScale,
-  Decimation,
-  Filler,
-  Legend,
-  Title,
-  Tooltip
-);
+Chart.register(ArcElement,LineElement,BarElement,PointElement,BarController,BubbleController,DoughnutController,LineController,
+  PieController,PolarAreaController,RadarController,ScatterController,CategoryScale,LinearScale,LogarithmicScale,
+  RadialLinearScale,TimeScale,TimeSeriesScale,Decimation,Filler,Legend,Title,Tooltip);
 
 function ChartTable() {
+    const dispatch = useDispatch();
     const covidData = useSelector(state => state.covidData.covidData);
-    const countryNames = useSelector(state=> state.covidData.countryNames);
+    const dailyData = useSelector(state => state.covidData.dailyData);
 
+    useEffect(() => {
+      dispatch(fetchDataDaily());
+    },[dispatch]);
+
+
+    //daily api'dan cekilen bilgiler
+    let labels = [], infected = [], deaths = [];
+
+    if (dailyData !== "") {
+      labels = dailyData.map((item) => item.reportDate);
+      infected = dailyData.map((item) => item.totalConfirmed);
+      deaths = dailyData.map((item) => item.deaths.total);
+    }
+  
   return (
-    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+    <div style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
 
+       {/* Bar chart******************** */}
+        <p className='text-2xl mt-5'>Selected Country Results</p>
         {
             covidData ? (<Bar data={{
                 labels: ["Infected", "Deaths", "Active"],
@@ -74,11 +47,31 @@ function ChartTable() {
                             covidData.confirmed.value - covidData.deaths.value]
                     }]
             }}
-
-            className="mx-96 my-5"
+            className="mx-60 my-2"
             />) : null
         }
-        
+
+
+        {/* Line chart******************  */}
+       <p className='text-2xl mt-5'>Daily Global Cases</p>
+        {
+           dailyData ? (<Line data={{
+            labels: labels,
+            datasets: [
+              {
+                data: infected,
+                label: "Infected",
+                backgroundColor: "blue",
+              },
+              {
+                data: deaths,
+                label: "Deaths",
+                backgroundColor: "red",
+              }],
+          }}
+          className="mx-60 my-2 mb-32"
+           /> ) : null
+        }       
     </div>
   )
 }
