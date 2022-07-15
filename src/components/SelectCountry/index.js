@@ -6,13 +6,13 @@ import { useDispatch , useSelector } from "react-redux";
 function SelectCountry() {
     const dispatch = useDispatch();
     const countryNames = useSelector(state => state.covidData.countryNames);
-    console.log('countryNames', countryNames);
 
   return (
-    <div style={{display: "flex", justifyContent: "center" , alignItems: "center"}}>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
       <ReactFlagsSelect
         selected={countryNames}
-        onSelect={(e) => {dispatch(setCountryNames(e))}}
+        onSelect={(e) => dispatch(setCountryNames(e))}
+        placeholder="Global"
         searchable={true}
         showSelectedLabel={true}
         showOptionLabel={true}
