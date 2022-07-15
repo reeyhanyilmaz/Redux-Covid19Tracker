@@ -1,11 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
-// export const fetchCovidData = createAsyncThunk("covidData/fetchCovidData", async () => {
-//         const response = await fetch("https://covid19.mathdro.id/api/confirmed");
-//         console.log('response', response);
-//         return response;
-//     });
+export const fetchCovidData = createAsyncThunk("covidData/fetchCovidData", async (countryNames) => {
+    if(countryNames === "") { //global data gelecek
+        const { data} = await axios("https://covid19.mathdro.id/api")
+        return data;
+    }else{
+        const { data } = await axios(`https://covid19.mathdro.id/api/countries/${countryNames}`);
+        return  data ;
+    }
+    });
 
 export const covidDataSlice = createSlice({
     name: "covidData",
@@ -15,10 +20,13 @@ export const covidDataSlice = createSlice({
     },
     reducers: {
         setCountryNames: (state, action) => {
-            state.countryNames = action.payload;           
+            state.countryNames = action.payload;    
         }
     },
     extraReducers: {
+        [fetchCovidData.fulfilled]: (state, action) => {
+            state.covidData = action.payload;
+        },
     },
 });
 
