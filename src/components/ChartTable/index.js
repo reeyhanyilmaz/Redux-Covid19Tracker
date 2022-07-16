@@ -47,7 +47,7 @@ function ChartTable() {
                             covidData.confirmed.value - covidData.deaths.value]
                     }]
             }}
-            className="mx-60 my-2"
+            className="max-w-3xl max-h-96 m-4"
             />) : null
         }
 
@@ -69,7 +69,7 @@ function ChartTable() {
                 backgroundColor: "red",
               }],
           }}
-          className="mx-60 my-2 mb-32"
+          className="max-w-3xl max-h-96 m-4"
            /> ) : null
         }       
     </div>
