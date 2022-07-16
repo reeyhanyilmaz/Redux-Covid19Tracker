@@ -6,11 +6,11 @@ import ChartTable from './components/ChartTable';
 
 function App() {
   return (
-    <div className="App">
-      {/* <Header /> */}
-      <SelectCountry />
-      <Cards />
-      <ChartTable />
+    <div className="App max-w-7xl">
+        <Header />
+        <SelectCountry />
+        <Cards />
+        <ChartTable />
     </div>
   );
 }
