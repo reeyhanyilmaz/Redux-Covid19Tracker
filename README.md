@@ -8,7 +8,7 @@ Patika.dev Redux modülü "Covid-19 Tracker" çalışması.
 * react.js
 * state yönetiminde ```redux store```
 * reduxjs/toolkit
-* tailwindcss
+* ```tailwindcss```
 * axios
 * react-countup
 * react-flags-select
