@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { Line, Bar } from "react-chartjs-2";
 import { useSelector , useDispatch} from "react-redux";
 import { fetchDataDaily } from "../../redux/covidDataSlice";
+
+//chart özellikleri için gerekli importlar
 import {Chart,ArcElement,LineElement,BarElement,PointElement,BarController,BubbleController,DoughnutController,
   LineController,PieController,PolarAreaController,RadarController,ScatterController,CategoryScale,LinearScale,
   LogarithmicScale,RadialLinearScale,TimeScale,TimeSeriesScale,Decimation,Filler,Legend,Title,Tooltip} from 'chart.js';
