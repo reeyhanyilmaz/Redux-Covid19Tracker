@@ -1,6 +1,8 @@
 # Redux-Covid19Tracker
 Patika.dev Redux modülü "Covid-19 Tracker" çalışması. 
 
+https://reyhan-redux-covid19-tracker.netlify.app/
+
 
 ## Kullanılan özellikler: 
 
