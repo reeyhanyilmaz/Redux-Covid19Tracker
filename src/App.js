@@ -3,6 +3,7 @@ import Header from './components/Header';
 import SelectCountry from './components/SelectCountry';
 import Cards from './components/Cards';
 import ChartTable from './components/ChartTable';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <SelectCountry />
         <Cards />
         <ChartTable />
+        <Footer />
     </div>
   );
 }
